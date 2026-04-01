@@ -6,16 +6,19 @@ import DesignMindApp from "./DesignMindApp.jsx";
 import PresentationPage from "./PresentationPage.jsx";
 
 export default function App() {
+  const hashPath =
+    typeof window !== "undefined" ? window.location.hash : "";
   const isToolPage =
     typeof window !== "undefined" &&
-    /\/app\/?$/.test(window.location.pathname);
+    (/\/app\/?$/.test(window.location.pathname) ||
+      /^#\/app\/?$/.test(hashPath));
 
   if (!isToolPage) {
     const assetBase = import.meta.env.BASE_URL || "/";
     return (
       <PresentationPage
         onStartApp={() => {
-          window.location.href = `${assetBase}app`;
+          window.location.href = `${assetBase}#/app`;
         }}
       />
     );

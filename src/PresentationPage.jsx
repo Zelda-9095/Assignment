@@ -139,7 +139,7 @@ export default function PresentationPage({ onStartApp }) {
   // 截圖放在 public/screenshots/，使用 BASE_URL 兼容本機與子路徑部署。
   const assetBase = import.meta.env.BASE_URL || '/';
   const screenshots = Array.from({ length: 12 }, (_, i) => `${assetBase}screenshots/shot-${i + 1}.png`);
-  const toolUrl = `${assetBase}app`;
+  const toolUrl = `${assetBase}#/app`;
   const pdfUrl = `${assetBase}design-process-presentation.pdf`;
 
   const toggleLang = () => {
@@ -257,6 +257,42 @@ export default function PresentationPage({ onStartApp }) {
           <p className="text-lg md:text-xl text-neutral-400 leading-relaxed max-w-3xl mx-auto">
             {t.heroDesc}
           </p>
+
+          {/* === Tool + PDF 交付區（移至影片上方） === */}
+          <div className="mx-auto mt-12 w-full max-w-5xl rounded-3xl border border-white/10 bg-neutral-900/70 p-6 shadow-2xl md:p-8">
+            <div className="text-center space-y-3">
+              <h2 className="text-2xl md:text-3xl font-black text-white">{t.sec5Title}</h2>
+              <p className="text-neutral-400">{t.sec5Sub}</p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
+              <a
+                href={toolUrl}
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-neutral-200"
+              >
+                {t.openTool} <ExternalLink size={16} />
+              </a>
+              <a
+                href={pdfUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
+              >
+                {t.openPdf} <ExternalLink size={16} />
+              </a>
+            </div>
+
+            <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/70">
+              <div className="border-b border-white/10 px-5 py-3 text-sm font-bold text-white/80">
+                {t.pdfPreview}
+              </div>
+              <iframe
+                src={pdfUrl}
+                title="Design Process PDF"
+                className="h-[60vh] w-full bg-neutral-950"
+              />
+            </div>
+          </div>
 
           {/* 視覺引導：向下捲動提示 (首屏結尾) */}
           <div className="pt-20 md:pt-32 pb-10 flex flex-col items-center justify-center opacity-40 animate-pulse">
@@ -515,44 +551,6 @@ export default function PresentationPage({ onStartApp }) {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* === Tool + PDF 交付區 === */}
-      <section className="py-24 px-6 bg-black border-t border-white/10">
-        <div className="max-w-6xl mx-auto space-y-8">
-          <div className="text-center space-y-3">
-            <h2 className="text-3xl md:text-4xl font-black text-white">{t.sec5Title}</h2>
-            <p className="text-neutral-400">{t.sec5Sub}</p>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href={toolUrl}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-neutral-200"
-            >
-              {t.openTool} <ExternalLink size={16} />
-            </a>
-            <a
-              href={pdfUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
-            >
-              {t.openPdf} <ExternalLink size={16} />
-            </a>
-          </div>
-
-          <div className="overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/70 shadow-2xl">
-            <div className="border-b border-white/10 px-5 py-3 text-sm font-bold text-white/80">
-              {t.pdfPreview}
-            </div>
-            <iframe
-              src={pdfUrl}
-              title="Design Process PDF"
-              className="h-[70vh] w-full bg-neutral-950"
-            />
           </div>
         </div>
       </section>
