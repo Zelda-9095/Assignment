@@ -11,10 +11,11 @@ export default function App() {
     /\/app\/?$/.test(window.location.pathname);
 
   if (!isToolPage) {
+    const assetBase = import.meta.env.BASE_URL || "/";
     return (
       <PresentationPage
         onStartApp={() => {
-          window.location.pathname = "/app";
+          window.location.href = `${assetBase}app`;
         }}
       />
     );

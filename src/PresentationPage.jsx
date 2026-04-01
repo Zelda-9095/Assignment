@@ -60,6 +60,11 @@ const TRANSLATIONS = {
     sec4Title: "Feature Showcase",
     sec4Sub: "A glance at the actual operation and beautifully generated layouts. Click to expand.",
     sec4Waiting: "(Waiting for image)",
+    sec5Title: "Project Delivery",
+    sec5Sub: "Open the live tool page or review the full design process PDF.",
+    openTool: "Open Tool Page (/app)",
+    openPdf: "Open Design Process PDF",
+    pdfPreview: "PDF Preview",
 
     footerBrand: "RenderFlow × DesignMind PRO",
     footerTech: "Engineered with React, Tailwind CSS & Google Gemini AI."
@@ -115,6 +120,11 @@ const TRANSLATIONS = {
     sec4Title: "功能實機展示",
     sec4Sub: "實際操作與生成的精美排版結果一覽，點擊圖片可放大檢視。",
     sec4Waiting: "(等待放入圖片)",
+    sec5Title: "專案交付內容",
+    sec5Sub: "可直接開啟工具頁，或查看完整設計流程 PDF。",
+    openTool: "開啟工具頁 (/app)",
+    openPdf: "開啟設計流程 PDF",
+    pdfPreview: "PDF 預覽",
 
     footerBrand: "RenderFlow × DesignMind PRO",
     footerTech: "Engineered with React, Tailwind CSS & Google Gemini AI."
@@ -129,6 +139,8 @@ export default function PresentationPage({ onStartApp }) {
   // 截圖放在 public/screenshots/，使用 BASE_URL 兼容本機與子路徑部署。
   const assetBase = import.meta.env.BASE_URL || '/';
   const screenshots = Array.from({ length: 12 }, (_, i) => `${assetBase}screenshots/shot-${i + 1}.png`);
+  const toolUrl = `${assetBase}app`;
+  const pdfUrl = `${assetBase}design-process-presentation.pdf`;
 
   const toggleLang = () => {
     setLang(prev => prev === 'en' ? 'zh' : 'en');
@@ -503,6 +515,44 @@ export default function PresentationPage({ onStartApp }) {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* === Tool + PDF 交付區 === */}
+      <section className="py-24 px-6 bg-black border-t border-white/10">
+        <div className="max-w-6xl mx-auto space-y-8">
+          <div className="text-center space-y-3">
+            <h2 className="text-3xl md:text-4xl font-black text-white">{t.sec5Title}</h2>
+            <p className="text-neutral-400">{t.sec5Sub}</p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-4">
+            <a
+              href={toolUrl}
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-neutral-200"
+            >
+              {t.openTool} <ExternalLink size={16} />
+            </a>
+            <a
+              href={pdfUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
+            >
+              {t.openPdf} <ExternalLink size={16} />
+            </a>
+          </div>
+
+          <div className="overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/70 shadow-2xl">
+            <div className="border-b border-white/10 px-5 py-3 text-sm font-bold text-white/80">
+              {t.pdfPreview}
+            </div>
+            <iframe
+              src={pdfUrl}
+              title="Design Process PDF"
+              className="h-[70vh] w-full bg-neutral-950"
+            />
           </div>
         </div>
       </section>
