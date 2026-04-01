@@ -6,12 +6,18 @@ import DesignMindApp from "./DesignMindApp.jsx";
 import PresentationPage from "./PresentationPage.jsx";
 
 export default function App() {
-  const isPresentationPage =
+  const isToolPage =
     typeof window !== "undefined" &&
-    /\/presentation\/?$/.test(window.location.pathname);
+    /\/app\/?$/.test(window.location.pathname);
 
-  if (isPresentationPage) {
-    return <PresentationPage />;
+  if (!isToolPage) {
+    return (
+      <PresentationPage
+        onStartApp={() => {
+          window.location.pathname = "/app";
+        }}
+      />
+    );
   }
 
   const [view, setView] = useState("renderflow");
